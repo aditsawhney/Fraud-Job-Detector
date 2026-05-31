@@ -1,0 +1,86 @@
+/* â”€â”€ Screen 1: Hero â”€â”€ */
+
+#screen1 {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 52px; /* nav height */
+  }
+  
+  .s1__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0 60px;
+  }
+  
+  .s1__label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+  
+  .s1__title {
+    font-family: var(--font-serif);
+    font-size: clamp(3.4rem, 6.5vw, 5.8rem);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  
+  .s1__title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  
+  .s1__sub {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    max-width: 44ch;
+    line-height: 1.65;
+    margin-bottom: 36px;
+  }
+  
+  .s1__actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  /* Stats strip â€” pinned to bottom of screen */
+  .s1__stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: 1px solid var(--border);
+  }
+  
+  .s1__stat {
+    padding: 20px 28px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .s1__stat:last-child { border-right: none; }
+  
+  .s1__stat-val {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  
+  .s1__stat-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }

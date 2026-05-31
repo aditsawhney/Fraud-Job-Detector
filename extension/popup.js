@@ -1,7 +1,7 @@
 const VERDICT = {
-    high:   { label: "likely_fraud" },
-    medium: { label: "suspicious"   },
-    low:    { label: "looks_legit"  },
+    high:   { label: "LIKELY FRAUD" },
+    medium: { label: "SUSPICIOUS"   },
+    low:    { label: "LOOKS LEGITIMATE"  },
   };
   
   function render(result) {
@@ -29,8 +29,10 @@ const VERDICT = {
   
     document.getElementById("risk-label").textContent  = VERDICT[risk_level].label;
     document.getElementById("risk-score").textContent  = `${Math.round(confidence * 100)}%`;
+    // to this
+    const confidenceLabel = risk_level === "high" ? "High confidence" : risk_level === "medium" ? "Medium confidence" : "Low confidence";
     document.getElementById("risk-verdict").textContent =
-      `${risk_level} confidence · ${reasons.length} flag${reasons.length !== 1 ? "s" : ""}`;
+      `${confidenceLabel} · ${reasons.length} flag${reasons.length !== 1 ? "s" : ""} found`;
   
     const flagsList = document.getElementById("flags-list");
     if (reasons.length === 0) {
@@ -48,10 +50,10 @@ const VERDICT = {
     const text = document.getElementById("status-text");
     if (source === "model") {
       dot.className  = "status-dot ready";
-      text.textContent = "model · analysed";
+      text.textContent = "Model Analysed";
     } else {
       dot.className  = "status-dot local";
-      text.textContent = "model · local only";
+      text.textContent = "Local Analysis";
     }
   }
   

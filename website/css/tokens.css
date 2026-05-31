@@ -1,0 +1,22 @@
+:root {
+    --bg:         #FAFAF8;
+    --bg-subtle:  #F3F2EE;
+    --bg-card:    #FFFFFF;
+    --border:     #E4E2DC;
+    --border-mid: #CCCAC2;
+    --text:       #111111;
+    --text-mid:   #444444;
+    --text-muted: #888880;
+    --accent:     #D94A2F;
+    --accent-dark:#B83C25;
+    --safe:       #2A7A4B;
+    --safe-bg:    #EBF5F0;
+    --warn:       #B8750A;
+    --warn-bg:    #FDF6E3;
+    --danger:     #D94A2F;
+    --danger-bg:  #FDF0ED;
+  
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans:  'DM Sans', system-ui, sans-serif;
+    --font-mono:  'DM Mono', 'Courier New', monospace;
+  }

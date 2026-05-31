@@ -4,27 +4,27 @@ body {
   width: 320px;
   font-family: sans-serif;
   font-size: 13px;
-  background: #fff;
-  color: #1a1a1a;
+  background: #f4f1ea; 
+  color: #2c2c2e;
 }
 
 .header {
   padding: 10px 14px;
-  border-bottom: 0.5px solid #e0e0e0;
+  border-bottom: 0.5px solid #e1dbcf;
   display: flex;
   align-items: center;
   gap: 10px;
+  background: #faf9f6;
 }
 
 .header-title {
-  font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   font-weight: 500;
 }
 
 .header-sub {
   font-size: 11px;
-  color: #888;
+  color: #7c7a75;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -34,26 +34,25 @@ body {
 .risk-band {
   padding: 14px 16px;
   text-align: center;
-  background: #f5f5f5;
+  background: #eadecc;
 }
 
-.risk-band.high   { background: #FCEBEB; }
-.risk-band.medium { background: #FAEEDA; }
-.risk-band.low    { background: #EAF3DE; }
+.risk-band.high    { background: #fce8e6; }
+.risk-band.medium  { background: #fef3d6; }
+.risk-band.low     { background: #e2f0d9; }
 
 .risk-label {
-  font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 4px;
-  color: #888;
+  color: #7c7a75;
 }
 
-.risk-band.high   .risk-label { color: #A32D2D; }
-.risk-band.medium .risk-label { color: #854F0B; }
-.risk-band.low    .risk-label { color: #3B6D11; }
+.risk-band.high   .risk-label { color: #c53030; }
+.risk-band.medium .risk-label { color: #b57a15; }
+.risk-band.low    .risk-label { color: #388e3c; }
 
 .risk-score {
   font-family: 'JetBrains Mono', monospace;
@@ -62,32 +61,32 @@ body {
   letter-spacing: -0.02em;
   line-height: 1;
   margin-bottom: 4px;
-  color: #aaa;
+  color: #4a4945;
 }
 
-.risk-band.high   .risk-score { color: #E24B4A; }
-.risk-band.medium .risk-score { color: #BA7517; }
-.risk-band.low    .risk-score { color: #639922; }
+.risk-band.high   .risk-score { color: #c53030; }
+.risk-band.medium .risk-score { color: #b57a15; }
+.risk-band.low    .risk-score { color: #388e3c; }
 
 .risk-verdict {
   font-size: 10px;
-  color: #aaa;
+  color: #4a4945;
 }
 
-.risk-band.high   .risk-verdict { color: #791F1F; }
-.risk-band.medium .risk-verdict { color: #633806; }
-.risk-band.low    .risk-verdict { color: #27500A; }
+.risk-band.high   .risk-verdict { color: #9b2c2c; }
+.risk-band.medium .risk-verdict { color: #8a5e10; }
+.risk-band.low    .risk-verdict { color: #2e6930; }
 
 .section {
   padding: 10px 14px;
-  border-top: 0.5px solid #e0e0e0;
+  border-top: 0.5px solid #e1dbcf;
+  background: #faf9f6;
 }
 
 .section-title {
-  font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   font-weight: 500;
-  color: #888;
+  color: #7c7a75;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 7px;
@@ -100,7 +99,7 @@ body {
   padding: 4px 0;
   font-size: 12px;
   line-height: 1.4;
-  color: #1a1a1a;
+  color: #3a3935;
 }
 
 .flag-dot {
@@ -111,23 +110,23 @@ body {
   flex-shrink: 0;
 }
 
-.flag-dot.red   { background: #E24B4A; }
-.flag-dot.amber { background: #BA7517; }
+.flag-dot.red   { background: #e53e3e; }
+.flag-dot.amber { background: #dd6b20; }
 
 .flag-placeholder {
-  font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: #aaa;
+  color: #bfaea2;
   font-style: italic;
   padding: 4px 0;
 }
 
 .footer {
   padding: 8px 14px;
-  border-top: 0.5px solid #e0e0e0;
+  border-top: 0.5px solid #e1dbcf;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #faf9f6;
 }
 
 .status-row {
@@ -135,22 +134,21 @@ body {
   align-items: center;
   gap: 6px;
   font-size: 10px;
-  color: #888;
+  color: #7c7a75;
 }
 
 .status-dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #ccc;
+  background: #dcd7cd;
 }
 
-.status-dot.ready  { background: #639922; }
-.status-dot.local  { background: #BA7517; }
-.status-dot.error  { background: #E24B4A; }
+.status-dot.ready  { background: #388e3c; }
+.status-dot.local  { background: #dd6b20; }
+.status-dot.error  { background: #e53e3e; }
 
 .version {
-  font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  color: #ccc;
+  color: #7c7a75;
 }

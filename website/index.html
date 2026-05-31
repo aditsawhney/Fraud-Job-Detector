@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FraudGuard — Indian Job Fraud Detection</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Global -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+
+  <!-- Per-screen -->
+  <link rel="stylesheet" href="screens/screen1.css">
+  <link rel="stylesheet" href="screens/screen2.css">
+  <link rel="stylesheet" href="screens/screen3.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <span class="nav__logo">Fraud<span>Guard</span></span>
+      <div class="nav__links">
+        <a href="#screen2">Detector</a>
+        <a href="#screen3">Model</a>
+        <a href="https://fraud-job-detector-1mdz.onrender.com/docs" target="_blank">API</a>
+        <a href="https://github.com/aditsawhney/Fraud-Job-Detector" target="_blank">GitHub ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Screen 1: Hero -->
+  <section id="screen1">
+    <div class="s1__body">
+      <div class="container">
+        <p class="s1__label">Indian job market · fraud detection</p>
+        <h1 class="s1__title">
+          The job post<br>looked real.<br><em>It wasn't.</em>
+        </h1>
+        <p class="s1__sub">
+          A hybrid ML system detecting fraudulent job postings in the Indian market.
+          TF-IDF text analysis combined with 15 hand-engineered fraud signals,
+          deployed as a live API and Chrome extension.
+        </p>
+        <div class="s1__actions">
+          <a href="#screen2" class="btn btn--primary">Try the detector →</a>
+          <a href="https://github.com/aditsawhney/Fraud-Job-Detector" target="_blank" class="btn btn--outline">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="s1__stats">
+      <div class="s1__stat">
+        <span class="s1__stat-val">94%</span>
+        <span class="s1__stat-label">Test accuracy</span>
+      </div>
+      <div class="s1__stat">
+        <span class="s1__stat-val">0.94</span>
+        <span class="s1__stat-label">Fraud F1 score</span>
+      </div>
+      <div class="s1__stat">
+        <span class="s1__stat-val">2,118</span>
+        <span class="s1__stat-label">Training examples</span>
+      </div>
+      <div class="s1__stat">
+        <span class="s1__stat-val">6</span>
+        <span class="s1__stat-label">Fraud archetypes</span>
+      </div>
+      <div class="s1__stat">
+        <span class="s1__stat-val">30k+</span>
+        <span class="s1__stat-label">TF-IDF features</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screen 2: Detector + Extension -->
+  <section id="screen2">
+    <div class="container">
+      <div class="s2__header">
+        <span class="s2__label">Live API · Real-time analysis</span>
+        <h2 class="s2__title">Paste a posting.<br>Get a risk assessment.</h2>
+      </div>
+      <div class="s2__grid">
+
+        <!-- Input form -->
+        <div class="s2__form-card">
+          <div class="s2__form-grid">
+            <div class="field">
+              <label>Job Title</label>
+              <input type="text" id="inp-title" placeholder="e.g. Data Entry Operator" />
+            </div>
+            <div class="field">
+              <label>Company</label>
+              <input type="text" id="inp-company" placeholder="e.g. Tech Solutions Pvt Ltd" />
+            </div>
+            <div class="field">
+              <label>Location</label>
+              <input type="text" id="inp-location" placeholder="e.g. Work From Home" />
+            </div>
+            <div class="field">
+              <label>Salary</label>
+              <input type="text" id="inp-salary" placeholder="e.g. ₹40,000/month" />
+            </div>
+            <div class="field field--full">
+              <label>Contact</label>
+              <input type="text" id="inp-contact" placeholder="e.g. WhatsApp / email" />
+            </div>
+            <div class="field field--full">
+              <label>Job Description</label>
+              <textarea id="inp-description" placeholder="Paste the full job description here…"></textarea>
+            </div>
+          </div>
+          <div class="s2__form-footer">
+            <span class="s2__form-note">Connected to live API</span>
+            <button class="btn btn--primary" id="analyze-btn">Analyse →</button>
+          </div>
+          <div class="s2__examples">
+            <button class="s2__example-btn" onclick="loadExample('fraud')">Try: suspicious post</button>
+            <button class="s2__example-btn" onclick="loadExample('legit')">Try: legitimate post</button>
+          </div>
+        </div>
+
+        <!-- Tabs: Results / Extension -->
+        <div class="s2__right">
+          <div class="s2__tabs">
+            <button class="s2__tab active" onclick="switchTab('results', this)">Results</button>
+            <button class="s2__tab" onclick="switchTab('extension', this)">Chrome Extension</button>
+          </div>
+
+          <div class="s2__panel active" id="tab-results">
+            <div id="result-idle" class="s2__result-idle">
+              <div class="s2__result-idle-icon">↗</div>
+              <p>Submit a posting to see the risk report</p>
+            </div>
+            <div id="result-content" style="display:none"></div>
+          </div>
+
+          <div class="s2__panel" id="tab-extension">
+            <div class="s2__ext-panel">
+              <div style="display:grid; grid-template-columns:280px 1fr; gap:24px; align-items:start;">
+                <div>
+                  <p class="ext-mockup-label" style="margin-bottom:10px;">Legitimate posting</p>
+                  <img src="images/real.png" alt="Extension showing legitimate result" style="width:100%; border-radius:8px; border:1px solid var(--border); margin-bottom:20px;">
+                  <p class="ext-mockup-label" style="margin-bottom:10px;">Suspicious posting</p>
+                  <img src="images/suspicious.png" alt="Extension showing suspicious result" style="width:100%; border-radius:8px; border:1px solid var(--border);">
+                </div>
+                <div>
+                    <p class="ext-mockup-label" style="margin-bottom:12px;">About the extension</p>
+                    <p class="ext-context" style="border:none; padding:0; margin:0 0 16px 0;">
+                      The Chrome extension scrapes job postings on LinkedIn and runs them against the live API in real time. Results appear as an overlay on each listing. No copy-pasting required.
+                    </p>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                      <p class="ext-context" style="border:none; padding:0; margin:0;">Falls back to local heuristics if the API is cold-starting</p>
+                      <p class="ext-context" style="border:none; padding:0; margin:0;">No data stored — requests are discarded after analysis</p>
+                      <p class="ext-context" style="border:none; padding:0; margin:0;">Works on "linkedin.com/jobs/view/" and "collections" pages</p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Screen 3: Model + Archetypes + Signals + Footer -->
+  <section id="screen3">
+    <div class="container">
+
+      <span class="s3__label">Model architecture · Feature design · Signal library</span>
+      <h2 class="s3__title">How the detection works.</h2>
+
+      <div class="s3__steps">
+        <div class="s3__step">
+          <div class="s3__step-num">01</div>
+          <h3>Feature extraction</h3>
+          <p>Each posting is vectorised with TF-IDF across 30,000 unigram and bigram features, then combined with 15 hand-crafted regex features targeting India-specific fraud patterns.</p>
+          <div class="s3__step-tags">
+            <span class="s3__tag">TF-IDF 1–2 ngrams</span>
+            <span class="s3__tag">30k vocab</span>
+            <span class="s3__tag">15 regex signals</span>
+          </div>
+        </div>
+        <div class="s3__step">
+          <div class="s3__step-num">02</div>
+          <h3>Logistic regression</h3>
+          <p>A sparse hstacked matrix feeds a balanced logistic regression model (C=1.0, class_weight='balanced'). Outputs a calibrated fraud probability between 0 and 1.</p>
+          <div class="s3__step-tags">
+            <span class="s3__tag">balanced classes</span>
+            <span class="s3__tag">calibrated proba</span>
+            <span class="s3__tag">sklearn</span>
+          </div>
+        </div>
+        <div class="s3__step">
+          <div class="s3__step-num">03</div>
+          <h3>Explainable output</h3>
+          <p>Each prediction returns the top contributing model features, matched regex signals with descriptions, a risk band, and a confidence score — every decision is auditable.</p>
+          <div class="s3__step-tags">
+            <span class="s3__tag">feature weights</span>
+            <span class="s3__tag">matched signals</span>
+            <span class="s3__tag">risk band</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="s3__sub-title">Six Indian fraud archetypes.</h3>
+      <div class="s3__archetypes">
+        <div class="s3__archetype">
+          <span class="s3__archetype-num">01 · Registration Scam</span>
+          <h4>Deposit / Fee Required</h4>
+          <p>Candidates asked to pay ₹500–5,000 as registration fee or security deposit before the role is confirmed.</p>
+        </div>
+        <div class="s3__archetype">
+          <span class="s3__archetype-num">02 · WFH Trap</span>
+          <h4>Data Entry from Home</h4>
+          <p>₹30,000–80,000/month for copy-paste work. Training kits purchased upfront; payouts never materialise.</p>
+        </div>
+        <div class="s3__archetype">
+          <span class="s3__archetype-num">03 · Messaging App Recruitment</span>
+          <h4>WhatsApp / Telegram Only</h4>
+          <p>Entire recruitment over messaging apps. No verifiable company presence, offers sent as screenshots.</p>
+        </div>
+        <div class="s3__archetype">
+          <span class="s3__archetype-num">04 · Brand Impersonation</span>
+          <h4>Fake MNC Listings</h4>
+          <p>Posts impersonating Infosys, TCS, Wipro with near-identical domains or logo abuse.</p>
+        </div>
+        <div class="s3__archetype">
+          <span class="s3__archetype-num">05 · Overseas Lure</span>
+          <h4>Gulf / Singapore Placement</h4>
+          <p>Promises placements abroad. Agents charge ₹50,000–2 lakh for visa processing that leads nowhere.</p>
+        </div>
+        <div class="s3__archetype">
+          <span class="s3__archetype-num">06 · Fake Internship</span>
+          <h4>Certification Fee Fraud</h4>
+          <p>Targets fresh graduates with internships requiring a certification fee. Companies don't exist.</p>
+        </div>
+      </div>
+
+      <h3 class="s3__sub-title">The signal library.</h3>
+      <div class="s3__signals">
+        <div class="s3__signal">
+          <h5>fee_payment_required</h5>
+          <p>Matches "registration fee", "pay ₹", "security deposit" and 12 variants.</p>
+          <div class="s3__signal-sev s3__signal-sev--high">● High</div>
+        </div>
+        <div class="s3__signal">
+          <h5>whatsapp_contact</h5>
+          <p>Contact restricted to WhatsApp number, often "WhatsApp: +91 …".</p>
+          <div class="s3__signal-sev s3__signal-sev--high">● High</div>
+        </div>
+        <div class="s3__signal">
+          <h5>inflated_salary</h5>
+          <p>Salary implausibly high for the role type, or "earn X daily" patterns.</p>
+          <div class="s3__signal-sev s3__signal-sev--high">● High</div>
+        </div>
+        <div class="s3__signal">
+          <h5>guaranteed_outcome</h5>
+          <p>"100% placement guaranteed", "assured income" — language no real employer uses.</p>
+          <div class="s3__signal-sev s3__signal-sev--high">● High</div>
+        </div>
+        <div class="s3__signal">
+          <h5>urgency_language</h5>
+          <p>"Limited seats", "apply within 24 hours", "immediate joiners only".</p>
+          <div class="s3__signal-sev s3__signal-sev--medium">● Medium</div>
+        </div>
+        <div class="s3__signal">
+          <h5>overseas_placement</h5>
+          <p>References to Gulf, Dubai, Singapore with placement guarantees or visa assistance.</p>
+          <div class="s3__signal-sev s3__signal-sev--high">● High</div>
+        </div>
+        <div class="s3__signal">
+          <h5>no_experience_required</h5>
+          <p>"Freshers welcome", "no qualification required", "anyone can apply".</p>
+          <div class="s3__signal-sev s3__signal-sev--medium">● Medium</div>
+        </div>
+        <div class="s3__signal">
+          <h5>personal_email_domain</h5>
+          <p>Contact email uses gmail.com or yahoo.com instead of a company domain.</p>
+          <div class="s3__signal-sev s3__signal-sev--medium">● Medium</div>
+        </div>
+        <div class="s3__signal">
+          <h5>vague_company</h5>
+          <p>Generic names like "HR Solutions", "Placement Services Pvt Ltd".</p>
+          <div class="s3__signal-sev s3__signal-sev--medium">● Medium</div>
+        </div>
+        <div class="s3__signal">
+          <h5>certification_fee</h5>
+          <p>Payment required for training certificates or "mandatory certifications".</p>
+          <div class="s3__signal-sev s3__signal-sev--high">● High</div>
+        </div>
+        <div class="s3__signal">
+          <h5>suspicious_domain</h5>
+          <p>Domain mimicking a known brand — infosysjobs.in, tcs-careers.co.</p>
+          <div class="s3__signal-sev s3__signal-sev--high">● High</div>
+        </div>
+        <div class="s3__signal">
+          <h5>data_entry_wfh_combo</h5>
+          <p>"Data entry" + "work from home" + salary claims. High-precision fraud combo.</p>
+          <div class="s3__signal-sev s3__signal-sev--high">● High</div>
+        </div>
+      </div>
+
+      <div class="s3__footer">
+        <div class="s3__footer-logo">Fraud<span>Guard</span></div>
+        <div class="s3__footer-links">
+          <a href="https://github.com/aditsawhney/Fraud-Job-Detector" target="_blank">GitHub</a>
+          <a href="https://fraud-job-detector-1mdz.onrender.com/docs" target="_blank">API Docs</a>
+          <a href="#screen2">Live Demo</a>
+        </div>
+        <p class="s3__footer-copy">Built by Adit Sawhney · EMSCAD + synthetic training data</p>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="js/detector.js"></script>
+
+</body>
+</html>

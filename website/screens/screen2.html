@@ -1,0 +1,136 @@
+<section id="screen2">
+    <div class="container">
+  
+      <div class="s2__header">
+        <span class="s2__label">Live API · Real-time analysis</span>
+        <h2 class="s2__title">Paste a posting.<br>Get a risk assessment.</h2>
+      </div>
+  
+      <div class="s2__grid">
+  
+        <!-- Left: Input form -->
+        <div class="s2__form-card">
+          <div class="s2__form-grid">
+            <div class="field">
+              <label>Job Title</label>
+              <input type="text" id="inp-title" placeholder="e.g. Data Entry Operator" />
+            </div>
+            <div class="field">
+              <label>Company</label>
+              <input type="text" id="inp-company" placeholder="e.g. Tech Solutions Pvt Ltd" />
+            </div>
+            <div class="field">
+              <label>Location</label>
+              <input type="text" id="inp-location" placeholder="e.g. Work From Home" />
+            </div>
+            <div class="field">
+              <label>Salary</label>
+              <input type="text" id="inp-salary" placeholder="e.g. ₹40,000/month" />
+            </div>
+            <div class="field">
+              <label>Contact</label>
+              <input type="text" id="inp-contact" placeholder="e.g. WhatsApp / email" />
+            </div>
+            <div class="field field--full">
+              <label>Job Description</label>
+              <textarea id="inp-description" placeholder="Paste the full job description here…"></textarea>
+            </div>
+          </div>
+  
+          <div class="s2__form-footer">
+            <span class="s2__form-note">Connected to live API</span>
+            <button class="btn btn--primary" id="analyze-btn">Analyse →</button>
+          </div>
+  
+          <div class="s2__examples">
+            <button class="s2__example-btn" onclick="loadExample('fraud')">Try: suspicious post</button>
+            <button class="s2__example-btn" onclick="loadExample('legit')">Try: legitimate post</button>
+          </div>
+        </div>
+  
+        <!-- Right: tabs for Results / Extension -->
+        <div class="s2__right">
+          <div class="s2__tabs">
+            <button class="s2__tab active" onclick="switchTab('results', this)">Results</button>
+            <button class="s2__tab" onclick="switchTab('extension', this)">Chrome Extension</button>
+          </div>
+  
+          <!-- Results panel -->
+          <div class="s2__panel active" id="tab-results">
+            <div id="result-idle" class="s2__result-idle">
+              <div class="s2__result-idle-icon">↗</div>
+              <p>Submit a posting to see the risk report</p>
+            </div>
+            <div id="result-content" style="display:none"></div>
+          </div>
+  
+          <!-- Extension panel -->
+          <div class="s2__panel" id="tab-extension">
+            <div class="s2__ext-panel">
+              <p class="ext-mockup-label">Extension popup · High Risk example</p>
+  
+              <div class="ext-popup">
+                <div class="ext-popup__bar">
+                  <span class="ext-popup__name">FraudGuard</span>
+                  <span class="ext-popup__badge ext-popup__badge--danger">HIGH RISK</span>
+                </div>
+                <div class="ext-popup__rows">
+                  <div class="ext-popup__row">
+                    <span class="ext-popup__row-key">FRAUD PROBABILITY</span>
+                    <span class="ext-popup__row-val ext-popup__row-val--danger">91%</span>
+                  </div>
+                  <div class="ext-popup__row">
+                    <span class="ext-popup__row-key">TITLE</span>
+                    <span class="ext-popup__row-val">Data Entry Operator WFH</span>
+                  </div>
+                  <div class="ext-popup__row">
+                    <span class="ext-popup__row-key">COMPANY</span>
+                    <span class="ext-popup__row-val">HR Solutions India</span>
+                  </div>
+                </div>
+                <div class="ext-popup__signals">
+                  <span class="ext-signal">fee_payment</span>
+                  <span class="ext-signal">whatsapp_contact</span>
+                  <span class="ext-signal">inflated_salary</span>
+                  <span class="ext-signal">urgency_language</span>
+                </div>
+              </div>
+  
+              <p class="ext-mockup-label">Extension popup · Safe example</p>
+  
+              <div class="ext-popup">
+                <div class="ext-popup__bar">
+                  <span class="ext-popup__name">FraudGuard</span>
+                  <span class="ext-popup__badge ext-popup__badge--safe">LOOKS SAFE</span>
+                </div>
+                <div class="ext-popup__rows">
+                  <div class="ext-popup__row">
+                    <span class="ext-popup__row-key">FRAUD PROBABILITY</span>
+                    <span class="ext-popup__row-val ext-popup__row-val--safe">8%</span>
+                  </div>
+                  <div class="ext-popup__row">
+                    <span class="ext-popup__row-key">TITLE</span>
+                    <span class="ext-popup__row-val">Associate Software Engineer</span>
+                  </div>
+                  <div class="ext-popup__row">
+                    <span class="ext-popup__row-key">COMPANY</span>
+                    <span class="ext-popup__row-val">ThoughtWorks India</span>
+                  </div>
+                </div>
+                <div class="ext-popup__signals" style="color:#555; font-size:0.68rem;">
+                  No fraud signals detected.
+                </div>
+              </div>
+  
+              <p class="ext-context">
+                Works on <code style="font-family:var(--font-mono);font-size:0.8em">linkedin.com/jobs/view/</code> and collections pages.
+                Falls back to local heuristics if the API is cold-starting.
+              </p>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+    </div>
+  </section>

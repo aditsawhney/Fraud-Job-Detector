@@ -1,0 +1,204 @@
+/* ── Screen 3: About the Model ── */
+
+#screen3 {
+    border-top: 1px solid var(--border);
+    padding: 96px 0;
+  }
+  
+  .s3__label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    display: block;
+  }
+  
+  .s3__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 64px;
+  }
+  
+  /* How it works — 3 steps */
+  .s3__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 80px;
+  }
+  
+  .s3__step {
+    background: var(--bg-card);
+    padding: 32px 28px;
+  }
+  
+  .s3__step-num {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  
+  .s3__step h3 {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  
+  .s3__step p {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+  
+  .s3__step-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 16px;
+  }
+  
+  .s3__tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: var(--bg-subtle);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  
+  /* Archetypes grid */
+  .s3__sub-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  
+  .s3__archetypes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 80px;
+  }
+  
+  .s3__archetype {
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    transition: border-color 0.15s;
+  }
+  .s3__archetype:hover { border-color: var(--border-mid); }
+  
+  .s3__archetype-num {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  .s3__archetype h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .s3__archetype p {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+  
+  /* Signal library */
+  .s3__signals {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  
+  .s3__signal {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    transition: border-color 0.15s;
+  }
+  .s3__signal:hover { border-color: var(--accent); }
+  
+  .s3__signal h5 {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  
+  .s3__signal p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  
+  .s3__signal-sev {
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .s3__signal-sev--high   { color: var(--danger); }
+  .s3__signal-sev--medium { color: var(--warn); }
+  .s3__signal-sev--low    { color: var(--text-muted); }
+  
+  /* Footer */
+  .s3__footer {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .s3__footer-logo {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .s3__footer-logo span { color: var(--accent); }
+  
+  .s3__footer-links {
+    display: flex;
+    gap: 24px;
+  }
+  .s3__footer-links a {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+  .s3__footer-links a:hover { color: var(--text); }
+  
+  .s3__footer-copy {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
