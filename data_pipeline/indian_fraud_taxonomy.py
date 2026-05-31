@@ -1,15 +1,11 @@
 """
-Indian Job Fraud Taxonomy
-=========================
-Ground-truthed from:
+indian_fraud_taxonomy.py
+
+Six Indian job scam archetypes, grounded in:
 - NCRB cybercrime reports (2021-2023)
 - Cybercrime.gov.in complaint patterns
 - Documented cases: CIEL HR, ScamDekho, Hirist, FactSuite
-- Quora Delhi NCR placement agency fraud patterns
 - Press reports (Navi Mumbai placement agency, Delhi cyber cell busts)
-
-Six distinct scam archetypes documented in Indian market.
-Each has unique linguistic fingerprints, target demographics, and fraud mechanics.
 """
 
 SCAM_ARCHETYPES = {
@@ -18,7 +14,7 @@ SCAM_ARCHETYPES = {
         "description": "Fake agency charges upfront registration/processing fee, promises placement, disappears",
         "real_cases": "Navi Mumbai agency cheated 6 people of ₹16.8 lakh (May 2025); Delhi NCR placement scams",
         "target": "Freshers, unemployed graduates, tier-2/3 city candidates",
-        "mechanics": "Collects ₹2,000–₹25,000 as 'registration', 'processing', or 'training' fee; may conduct fake interview to build trust",
+        "mechanics": "Collects ₹2,000-25,000 as 'registration', 'processing', or 'training' fee; may conduct fake interview to build trust",
         "linguistic_signals": [
             "registration fee", "processing charges", "security deposit",
             "refundable fee", "training fee", "placement guarantee",
@@ -32,7 +28,7 @@ SCAM_ARCHETYPES = {
             "vague company address (often just city name)",
             "no LinkedIn company page",
         ],
-        "salary_range": "₹15,000–₹45,000/month (believable but attractive)",
+        "salary_range": "₹15,000-45,000/month (believable but attractive)",
         "roles": ["HR Executive", "Data Entry Operator", "Back Office Executive",
                   "Customer Support", "Tele-caller", "Accounts Assistant"],
     },
@@ -55,20 +51,20 @@ SCAM_ARCHETYPES = {
             "interview via WhatsApp call or Google Meet only",
             "salary much higher than market for experience level",
         ],
-        "salary_range": "₹4–8 LPA for freshers (inflated)",
+        "salary_range": "₹4-8 LPA for freshers (inflated)",
         "roles": ["Software Engineer", "Associate Consultant", "Business Analyst",
                   "Operations Executive", "Process Associate"],
     },
 
     "wfh_task_scam": {
         "description": "Work-from-home jobs requiring 'liking', 'reviewing', 'rating', or 'data entry' tasks",
-        "real_cases": "Student promised ₹3,000/day for liking videos; WhatsApp ₹3,000–5,000/day messages (India Today verified hoax)",
+        "real_cases": "Student promised ₹3,000/day for liking videos; WhatsApp ₹3,000-5,000/day messages (India Today verified hoax)",
         "target": "Students, homemakers, unemployed youth",
         "mechanics": "Small initial payout builds trust, then asks for 'investment' or 'task unlock fee' to access higher-paying tasks",
         "linguistic_signals": [
             "work from home", "part time", "2-3 hours daily",
             "earn from mobile", "no experience needed", "freshers welcome",
-            "₹500–₹5000 per day", "daily payment", "instant payout",
+            "₹500-5000 per day", "daily payment", "instant payout",
             "simple tasks", "like and earn", "rate and earn",
             "product reviewer", "app tester", "survey jobs",
             "data typing", "copy paste work", "form filling",
@@ -80,7 +76,7 @@ SCAM_ARCHETYPES = {
             "payment via UPI only",
             "screenshot of earnings shared as proof",
         ],
-        "salary_range": "₹15,000–₹1,50,000/month (absurdly high for task described)",
+        "salary_range": "₹15,000-1,50,000/month (absurdly high for task described)",
         "roles": ["Product Reviewer", "Data Entry Executive", "Social Media Evaluator",
                   "App Tester", "Online Survey Specialist", "Content Rater"],
     },
@@ -102,13 +98,13 @@ SCAM_ARCHETYPES = {
             "contact via WhatsApp only",
             "fee payment via personal bank account or UPI",
         ],
-        "salary_range": "AED 3,000–8,000 or SGD 2,000–5,000 (vague currency)",
+        "salary_range": "AED 3,000-8,000 or SGD 2,000-5,000 (vague currency)",
         "roles": ["Driver", "Electrician", "Plumber", "Nurse", "Accountant",
                   "Warehouse Worker", "Security Guard", "Chef"],
     },
 
     "identity_harvest": {
-        "description": "Job post designed to collect Aadhaar, PAN, bank details early in process",
+        "description": "Job post designed to collect Aadhaar, PAN, bank details early in the process",
         "real_cases": "Quora Delhi NCR: recruiter asks for scanned Aadhaar+PAN+bank details; used for unauthorized KYC",
         "target": "Any job seeker, especially those unfamiliar with what's appropriate to share",
         "mechanics": "Asks for documents 'to check eligibility' or 'to process your application' before any interview",
@@ -124,8 +120,8 @@ SCAM_ARCHETYPES = {
             "form collecting financial info",
             "no interview before document collection",
         ],
-        "salary_range": "₹20,000–₹60,000 (varies, used as bait)",
-        "roles": ["Any role — identity harvest is cross-cutting"],
+        "salary_range": "₹20,000-60,000 (varies, used as bait)",
+        "roles": ["Any role - identity harvest is cross-cutting"],
     },
 
     "bpo_bulk_scam": {
@@ -145,16 +141,15 @@ SCAM_ARCHETYPES = {
             "no specific company name, just 'leading BPO'",
             "address is a residential area or mall",
             "contact is personal mobile number",
-            "no company email — only Gmail",
+            "no company email - only Gmail",
         ],
-        "salary_range": "₹10,000–₹25,000 (realistic but vague, 'upto' language)",
+        "salary_range": "₹10,000-25,000 (realistic but vague, 'upto' language)",
         "roles": ["Customer Care Executive", "Tele-caller", "BPO Executive",
                   "Voice Process Associate", "Chat Support", "Data Entry"],
     },
 }
 
-# Linguistic red flags that cut across all archetypes
-# These are India-specific and mostly absent from EMSCAD
+# Signals that appear across multiple archetypes
 CROSS_CUTTING_SIGNALS = {
     "fee_language": [
         "registration fee", "processing fee", "security deposit",
@@ -169,7 +164,7 @@ CROSS_CUTTING_SIGNALS = {
         "walk-in tomorrow", "same day joining",
     ],
     "unrealistic_compensation": [
-        "earn ₹500–5000 per day", "₹15,000–₹1,50,000 per month",
+        "earn ₹500-5000 per day", "₹15,000-1,50,000 per month",
         "unlimited earning", "no income cap", "incentives unlimited",
         "salary negotiable", "best in industry", "highest package",
     ],

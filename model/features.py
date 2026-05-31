@@ -1,8 +1,7 @@
 """
-features.py
+features.py - shared feature extractor for train.py and app.py.
 
-Shared feature extractor used by both train.py and app.py.
-Keeping it here ensures pickle can find the class when loading model.pkl.
+Keeping this in a shared module ensures pickle can find the class when loading model.pkl.
 """
 
 import re
@@ -15,10 +14,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 class CombinedFeatureExtractor(BaseEstimator, TransformerMixin):
     """
-    Combines TF-IDF with 15 Indian fraud hand-crafted features into one
-    transformer.
+    Combines TF-IDF with 15 Indian fraud hand-crafted features.
 
-    Input: DataFrame with at least full_text and company columns.
+    Input:  DataFrame with at least full_text and company columns.
     Output: sparse matrix (tfidf features || hand features)
     """
 

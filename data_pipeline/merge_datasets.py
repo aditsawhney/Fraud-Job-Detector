@@ -2,9 +2,9 @@
 merge_datasets.py
 
 Merges three sources:
-  1. synthetic_indian_jobs.csv  — 300 fraud + 452 real (Groq-generated, Indian market)
-  2. EMSCAD fraud rows (866)    — real human-written Western scam postings
-  3. EMSCAD real rows (500)     — sampled real human-written Western job postings
+  1. synthetic_indian_jobs.csv  - 300 fraud + 452 real (Groq-generated, Indian market)
+  2. EMSCAD fraud rows (866)    - real human-written Western scam postings
+  3. EMSCAD real rows (500)     - sampled real human-written Western job postings
 
 Final dataset: ~1166 fraud, ~952 real
 
@@ -21,14 +21,14 @@ RAW_DIR = Path("data/raw")
 OUT_DIR = Path("data/processed")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-SYNTHETIC_CSV = RAW_DIR / "synthetic_indian_jobs.csv"
-EMSCAD_CSV    = RAW_DIR / "emscad_fake_job_postings.csv"
+SYNTHETIC_CSV      = RAW_DIR / "synthetic_indian_jobs.csv"
+EMSCAD_CSV         = RAW_DIR / "emscad_fake_job_postings.csv"
 EMSCAD_REAL_SAMPLE = 500
 
 
 def load_synthetic(path: Path) -> pd.DataFrame:
     df = pd.read_csv(path)
-    df["description"] = df["description"].fillna("")
+    df["description"]  = df["description"].fillna("")
     df["requirements"] = df["requirements"].fillna("")
     df["full_text"] = (
         df["title"].fillna("") + " "
@@ -44,7 +44,7 @@ def load_emscad(path: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
 
     def build_rows(subset, label, source, archetype):
         subset = subset.copy()
-        subset["description"] = subset["description"].fillna("")
+        subset["description"]  = subset["description"].fillna("")
         subset["requirements"] = subset["requirements"].fillna("")
         subset["full_text"] = (
             subset["title"].fillna("") + " "
@@ -61,11 +61,8 @@ def load_emscad(path: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
         subset["location"]  = subset["location"].fillna("")
         return subset[["title", "company", "location", "salary", "contact", "full_text", "label", "source", "archetype"]]
 
-    fraud = build_rows(
-        df[df["fraudulent"] == 1],
-        label=1, source="emscad", archetype="emscad_fraud"
-    )
-    real = build_rows(
+    fraud = build_rows(df[df["fraudulent"] == 1], label=1, source="emscad", archetype="emscad_fraud")
+    real  = build_rows(
         df[df["fraudulent"] == 0].sample(n=EMSCAD_REAL_SAMPLE, random_state=42),
         label=0, source="emscad_real", archetype="legitimate"
     )

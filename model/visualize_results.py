@@ -20,20 +20,21 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
+import pandas as pd
 
-MODEL_DIR  = Path("model")
-DATA_DIR   = Path("data/processed")
-OUT_DIR    = Path("reports/figures")
+MODEL_DIR = Path("model")
+DATA_DIR  = Path("data/processed")
+OUT_DIR   = Path("reports/figures")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 plt.rcParams.update({
-    "font.family":      "DejaVu Sans",
-    "axes.spines.top":  False,
+    "font.family":       "DejaVu Sans",
+    "axes.spines.top":   False,
     "axes.spines.right": False,
-    "axes.grid":        True,
-    "grid.alpha":       0.3,
-    "grid.linestyle":   "--",
-    "figure.dpi":       150,
+    "axes.grid":         True,
+    "grid.alpha":        0.3,
+    "grid.linestyle":    "--",
+    "figure.dpi":        150,
 })
 
 FRAUD_COLOR = "#D85A30"
@@ -49,8 +50,6 @@ with open(MODEL_DIR / "top_features.json") as f:
 with open(DATA_DIR / "dataset_metadata.json") as f:
     metadata = json.load(f)
 
-
-# ── 1. Confusion matrices ─────────────────────────────────────────────────────
 
 def plot_confusion_matrix(cm, split_name):
     fig, ax = plt.subplots(figsize=(5, 4))
@@ -68,7 +67,7 @@ def plot_confusion_matrix(cm, split_name):
             ax.text(j, i, str(cm_arr[i, j]), ha="center", va="center",
                     fontsize=16, fontweight="bold", color=color)
 
-    ax.set_title(f"Confusion matrix — {split_name}", fontsize=13, pad=12)
+    ax.set_title(f"Confusion matrix - {split_name}", fontsize=13, pad=12)
     plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
     plt.tight_layout()
     path = OUT_DIR / f"confusion_matrix_{split_name.lower()}.png"
@@ -76,35 +75,30 @@ def plot_confusion_matrix(cm, split_name):
     plt.close()
     print(f"Saved {path}")
 
-plot_confusion_matrix(report["val"]["confusion_matrix"],   "val")
-plot_confusion_matrix(report["test"]["confusion_matrix"],  "test")
 
+plot_confusion_matrix(report["val"]["confusion_matrix"],  "val")
+plot_confusion_matrix(report["test"]["confusion_matrix"], "test")
 
-# ── 2. Precision / Recall / F1 bar chart ──────────────────────────────────────
 
 def plot_prf():
-    metrics   = ["precision", "recall", "f1-score"]
-    splits    = ["val", "test"]
-    classes   = ["real", "fraud"]
-    colors    = [REAL_COLOR, FRAUD_COLOR]
+    metrics = ["precision", "recall", "f1-score"]
+    splits  = ["val", "test"]
+    classes = ["real", "fraud"]
+    colors  = [REAL_COLOR, FRAUD_COLOR]
 
-    x     = np.arange(len(metrics))
-    width = 0.18
+    x       = np.arange(len(metrics))
+    width   = 0.18
     offsets = [-1.5, -0.5, 0.5, 1.5]
 
     fig, ax = plt.subplots(figsize=(9, 5))
 
-    handles = []
     for ci, cls in enumerate(classes):
         for si, split in enumerate(splits):
-            idx    = ci * 2 + si
-            vals   = [report[split]["classification_report"][cls][m] for m in metrics]
-            alpha  = 1.0 if si == 1 else 0.55
-            bars   = ax.bar(x + offsets[idx] * width, vals, width,
-                            color=colors[ci], alpha=alpha,
-                            label=f"{cls} ({split})")
-            if si == 1:
-                handles.append(bars)
+            idx   = ci * 2 + si
+            vals  = [report[split]["classification_report"][cls][m] for m in metrics]
+            alpha = 1.0 if si == 1 else 0.55
+            ax.bar(x + offsets[idx] * width, vals, width,
+                   color=colors[ci], alpha=alpha, label=f"{cls} ({split})")
 
     ax.set_xticks(x)
     ax.set_xticklabels(["Precision", "Recall", "F1-score"], fontsize=12)
@@ -113,10 +107,10 @@ def plot_prf():
     ax.set_title("Precision, recall, and F1 by class (val vs test)", fontsize=13, pad=12)
 
     legend_elements = [
-        mpatches.Patch(color=REAL_COLOR,  alpha=0.55, label="real — val"),
-        mpatches.Patch(color=REAL_COLOR,  alpha=1.0,  label="real — test"),
-        mpatches.Patch(color=FRAUD_COLOR, alpha=0.55, label="fraud — val"),
-        mpatches.Patch(color=FRAUD_COLOR, alpha=1.0,  label="fraud — test"),
+        mpatches.Patch(color=REAL_COLOR,  alpha=0.55, label="real - val"),
+        mpatches.Patch(color=REAL_COLOR,  alpha=1.0,  label="real - test"),
+        mpatches.Patch(color=FRAUD_COLOR, alpha=0.55, label="fraud - val"),
+        mpatches.Patch(color=FRAUD_COLOR, alpha=1.0,  label="fraud - test"),
     ]
     ax.legend(handles=legend_elements, fontsize=10, framealpha=0.4)
 
@@ -126,20 +120,18 @@ def plot_prf():
     plt.close()
     print(f"Saved {path}")
 
+
 plot_prf()
 
 
-# ── 3. Feature coefficients ───────────────────────────────────────────────────
-
 def plot_features():
-    # Show top 10 fraud + top 10 real, indian_* features labelled clearly
     fraud_feats = features["top_fraud_signals"][:10]
     real_feats  = features["top_real_signals"][:10]
 
-    all_feats  = fraud_feats + real_feats
-    names      = [f["feature"].replace("indian_", "★ ") for f in all_feats]
-    coefs      = [f["coefficient"] for f in all_feats]
-    colors     = [FRAUD_COLOR if c > 0 else REAL_COLOR for c in coefs]
+    all_feats = fraud_feats + real_feats
+    names     = [f["feature"].replace("indian_", "* ") for f in all_feats]
+    coefs     = [f["coefficient"] for f in all_feats]
+    colors    = [FRAUD_COLOR if c > 0 else REAL_COLOR for c in coefs]
 
     fig, ax = plt.subplots(figsize=(9, 7))
     y = np.arange(len(names))
@@ -148,11 +140,11 @@ def plot_features():
     ax.set_yticklabels(names, fontsize=10)
     ax.axvline(0, color=NEUTRAL, linewidth=0.8)
     ax.set_xlabel("Logistic regression coefficient", fontsize=11)
-    ax.set_title("Top fraud and real signals (★ = Indian hand-crafted feature)", fontsize=12, pad=12)
+    ax.set_title("Top fraud and real signals (* = Indian hand-crafted feature)", fontsize=12, pad=12)
     ax.invert_yaxis()
 
-    fraud_patch = mpatches.Patch(color=FRAUD_COLOR, alpha=0.85, label="→ fraud")
-    real_patch  = mpatches.Patch(color=REAL_COLOR,  alpha=0.85, label="→ real")
+    fraud_patch = mpatches.Patch(color=FRAUD_COLOR, alpha=0.85, label="-> fraud")
+    real_patch  = mpatches.Patch(color=REAL_COLOR,  alpha=0.85, label="-> real")
     ax.legend(handles=[fraud_patch, real_patch], fontsize=10, framealpha=0.4)
 
     plt.tight_layout()
@@ -161,10 +153,9 @@ def plot_features():
     plt.close()
     print(f"Saved {path}")
 
+
 plot_features()
 
-
-# ── 4. Dataset composition ────────────────────────────────────────────────────
 
 def plot_dataset():
     sources = metadata["source_distribution"]
@@ -174,7 +165,6 @@ def plot_dataset():
 
     fig, axes = plt.subplots(1, 2, figsize=(11, 5))
 
-    # Pie — source breakdown
     wedges, texts, autotexts = axes[0].pie(
         values, labels=labels, colors=colors,
         autopct="%1.1f%%", startangle=140,
@@ -184,15 +174,9 @@ def plot_dataset():
         at.set_fontsize(9)
     axes[0].set_title("Dataset sources", fontsize=12, pad=10)
 
-    # Bar — label distribution across splits
     split_names  = ["train", "val", "test"]
     split_fraud  = []
     split_real   = []
-    for s in split_names:
-        split_data = metadata["splits"]
-        # recount from metadata if available, else estimate
-    # Use the split counts from metadata
-    import pandas as pd
     for s in split_names:
         df = pd.read_csv(f"data/processed/{s}.csv")
         split_fraud.append((df["label"] == 1).sum())
@@ -218,7 +202,7 @@ def plot_dataset():
     plt.close()
     print(f"Saved {path}")
 
-plot_dataset()
 
+plot_dataset()
 
 print(f"\nAll figures saved to {OUT_DIR}/")

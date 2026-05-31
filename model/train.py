@@ -1,13 +1,12 @@
 """
-train.py
+train.py - FraudScan model training.
 
-Trains the FraudScan model:
-    CombinedFeatureExtractor (TF-IDF + Indian hand-crafted features) → LogisticRegression
+Trains: CombinedFeatureExtractor (TF-IDF + Indian hand-crafted features) -> LogisticRegression
 
-Outputs (all in model/):
-    model.pkl               — full sklearn pipeline
-    evaluation_report.json  — precision, recall, F1, confusion matrix
-    top_features.json       — top fraud/real LR coefficients for extension popup
+Outputs to model/:
+    model.pkl               - full sklearn pipeline
+    evaluation_report.json  - precision, recall, F1, confusion matrix
+    top_features.json       - top fraud/real LR coefficients for extension popup
 
 Usage:
     python model/train.py
@@ -24,12 +23,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.pipeline import Pipeline
 
-# Allow importing from project root
 sys.path.append(str(Path(__file__).parent.parent))
 from model.features import CombinedFeatureExtractor
 
 DATA_DIR = Path("data/processed")
-OUT_DIR = Path("model")
+OUT_DIR  = Path("model")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -52,7 +50,7 @@ def get_top_features(pipeline, n=20):
     coefs = clf.coef_[0]
 
     top_fraud_idx = np.argsort(coefs)[::-1][:n]
-    top_real_idx = np.argsort(coefs)[:n]
+    top_real_idx  = np.argsort(coefs)[:n]
 
     return {
         "top_fraud_signals": [

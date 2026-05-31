@@ -1,10 +1,8 @@
 """
-app.py
+app.py - FraudScan FastAPI backend.
 
-FraudScan FastAPI backend.
-
-POST /predict  — runs the ML model on a job posting
-GET  /health   — Render health check
+POST /predict  - runs the ML model on a job posting
+GET  /health   - Render health check
 
 Run locally from project root:
     uvicorn backend.app:app --reload
@@ -24,11 +22,9 @@ from pydantic import BaseModel
 
 BASE_DIR = Path(__file__).parent.parent
 sys.path.append(str(BASE_DIR))
-from model.features import CombinedFeatureExtractor  # noqa: F401 — needed for pickle
+from model.features import CombinedFeatureExtractor  # noqa: F401 - needed for pickle
 
-# ── Load model + top features at startup ─────────────────────────────────────
-
-MODEL_PATH   = BASE_DIR / "model" / "model.pkl"
+MODEL_PATH    = BASE_DIR / "model" / "model.pkl"
 FEATURES_PATH = BASE_DIR / "model" / "top_features.json"
 
 try:
@@ -39,8 +35,6 @@ except FileNotFoundError:
 
 with open(FEATURES_PATH) as f:
     top_features_data = json.load(f)
-
-# ── App setup ─────────────────────────────────────────────────────────────────
 
 app = FastAPI(
     title="FraudScan API",
@@ -55,7 +49,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Request / response schemas ────────────────────────────────────────────────
 
 class JobPosting(BaseModel):
     title: str = ""
@@ -65,6 +58,7 @@ class JobPosting(BaseModel):
     contact: str = ""
     description: str = ""
 
+
 class PredictionResponse(BaseModel):
     prediction: int
     confidence: float
@@ -72,7 +66,6 @@ class PredictionResponse(BaseModel):
     reasons: list[str]
     top_model_features: list[dict]
 
-# ── Fraud signal explanations ─────────────────────────────────────────────────
 
 SIGNAL_EXPLANATIONS = {
     "fee_language":         "Mentions registration, processing, or training fees",
@@ -134,8 +127,6 @@ def confidence_to_risk(confidence: float, prediction: int) -> str:
         return "MEDIUM"
     return "LOW"
 
-
-# ── Routes ────────────────────────────────────────────────────────────────────
 
 @app.get("/health")
 def health():
