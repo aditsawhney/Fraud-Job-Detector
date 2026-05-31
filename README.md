@@ -56,6 +56,8 @@ EMSCAD adds real human-written Western scam postings to diversify the fraud clas
 
 > EMSCAD citation: "Employment Scam Aegean Dataset", University of the Aegean, 2014. [Kaggle](https://www.kaggle.com/datasets/shivamb/real-or-fake-fake-jobposting-prediction)
 
+> Synthetic Indian dataset: [Kaggle — Indian Job Fraud Dataset](https://www.kaggle.com/datasets/aditsawhney/indian-job-fraud-dataset)
+
 ---
 
 ## Model
