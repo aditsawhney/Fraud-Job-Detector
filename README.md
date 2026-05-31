@@ -2,7 +2,7 @@
 
 A machine learning system that detects fraudulent job postings in the Indian market - deployed as a live API, Chrome extension, and public web interface.
 
-**Live demo:** https://aditsawhney.github.io/Fraud-Job-Detector
+**Live demo:** https://aditsawhney.github.io/FraudGuard/
 
 ---
 
